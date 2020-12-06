@@ -15,3 +15,4 @@
 
 ### There was another class called Banker which have multi instance methods to bank and clear points.
 
+## [Pull request link](https://github.com/hadeelhhawajreh/Game-of-Greed/pull/1)
