@@ -1,7 +1,7 @@
 # Game of Greed I
 
 # Our team:
-## Hadeel Hawajreh
+## Hadeel Al-Hawajreh
 ## Saja Ismail
 ## Momayaz Aldos
 ## Ahmad Al-Mohammad
