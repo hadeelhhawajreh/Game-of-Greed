@@ -1,18 +1,77 @@
 # Game of Greed I
 
-# Our team:
-## Hadeel Al-Hawajreh
-## Saja Ismail
-## Momayaz Aldos
-## Ahmad Al-Mohammad
+### Our team:
+ > Hadeel Al-Hawajreh
 
-### Lab06 
-### 06/12/2020
-### Start at 2:00 pm Finished 5:08 pm
+ >Saja Ismail
+
+ >Momayaz Aldos
+
+ >Ahmad Al-Mohammad
+
+-----------
+### Lab-06 
+06/12/2020
+
+ + Start at 2:00 pm 
+ + Finished 5:08 pm
 
 ## Feature Tasks
-### We created a class called GameLogic with multi methods to calculate the score related to game roles and chose a random number for each dice.
+1. Define a GameLogic class 
 
-### There was another class called Banker which have multi instance methods to bank and clear points.
+2. Handle calculating score for dice roll
+
+3. Add calculate_score static method to GameLogic class.
+
+4. The input to calculate_score is a tuple of integers that represent a dice roll.
+
+5. The output from calculate_score is an integer representing the roll’s score according to rules of game.
+
+
+6. Add roll_dice  method to GameLogic class.
+    + The input to roll_dice is an integer between 1 and 6.
+    + The output of roll_dice is a tuple with random values between 1 and 6.
+    + The length of tuple must match the argument given to roll_dice method.
+    + Handle banking points
+
+7. Define a Banker class
+    + Add a shelf instance method
+    + Input to shelf is the amount of points (integer) to add to shelf.
+    + shelf should temporarily store unbanked points.
+    + Add a bank instance method
+    + bank should add any points on the shelf to total and reset shelf to 0.
+    + bank output should be the amount of points added to total from shelf.
+    + Add a clear_shelf instance method
+    + clear_shelf should remove all unbanked points.
+
 
 ## [Pull request link](https://github.com/hadeelhhawajreh/Game-of-Greed/pull/1)
+
+
+------------------------------------------------------------
+# Game of Greed II
+
+### Lab-07 
+07/12/2020
+
+Start at 2:00 pm Finished 4:20 pm
+
+### *Feature Tasks and Requirements*
+
+### we create another class name Game and inside it we put 
+
+1.Application should implement all features from previous version
+
+2.Application should simulate rolling between 1 and 6 dice
+
+3.Application should allow user to set aside dice each roll
+
+4.Application should allow “banking” current score or rolling again.
+5.Application should keep track of total score
+
+6.Application should keep track of current round
+
+7.Application should have automated tests to ensure proper operation
+
+
+
