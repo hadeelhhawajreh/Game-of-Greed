@@ -216,7 +216,7 @@ class Banker:
 
 class Game:
     def __init__(self,roller=None):
-        self.roller=roller
+        self.roller=roller or GameLogic.roll_dice(roller)
     
 
     def play(self):
@@ -242,6 +242,26 @@ class Game:
                 remaining_dice-=1
                 g = GameLogic()
                 unbank = g.calculate_score((int(dice_to_keep),))
+                if type(int(dice_to_keep)) == int:
+                    if len(dice_to_keep) <= remaining_dice:
+                        user_input = [int(i) for i in dice_to_keep.split(",")]
+                        for i in user_input:
+                            if not i in roll:
+                                print('Cheater!!! Or possibly made a typo...')
+                                print(roll)
+                                dice_to_keep = input('Enter dice to keep (no spaces), or (q)uit: ')
+                                
+                            else:
+                                unbank = g.calculate_score((int(dice_to_keep),))
+                                print(f'You have {unbank} unbanked points and {remaining_dice} dice remaining')
+                                res = input(f'(r)oll again, (b)ank your points or (q)uit ')
+                                if dice_to_keep == 'q':
+                                    unbank = 0
+                                print(f'Total score is {score} points')
+                                print(f'Thanks for playing. You earned {score} points')
+                else:
+                    print('pleas enter valid input..')
+
                 print(f'You have {unbank} unbanked points and {remaining_dice} dice remaining')
                 res = input(f'(r)oll again, (b)ank your points or (q)uit ')
                 if res == 'b':
@@ -278,6 +298,3 @@ class Game:
                             print(f'Thanks for playing. You earned {score} points')
 
 
-if __name__ == "__main__":
-    g=Game()
-    g.play()
