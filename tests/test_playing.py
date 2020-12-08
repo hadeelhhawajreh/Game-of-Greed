@@ -15,3 +15,12 @@ def test_tests_bank_first_for_two_rounds():
 
 def test_cheat_and_fix():
     Flo.test('tests/flow/cheat_and_fix.txt')  
+
+def test_hot_dice():
+    Flo.test('tests/flow/hot_dice.txt')  
+
+def test_living_on_the_edge():
+    Flo.test('tests/flow/living_on_the_edge.txt')  
+
+def test_zilch():
+    Flo.test('tests/flow/zilch.txt')  

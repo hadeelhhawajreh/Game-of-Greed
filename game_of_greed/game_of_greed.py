@@ -246,36 +246,43 @@ class Banker:
     
 class Game:
     def __init__(self,roller=None):
-        self.roller=roller or GameLogic.roll_dice(roller)
+        self.roller=roller or GameLogic.roll_dice
     
     @staticmethod
     def quit(score):
         print(f'Total score is {score} points')
         print(f'Thanks for playing. You earned {score} points')
 
-
-    @staticmethod
-    def bank(dice_to_keep,remaining_dice,roll):
-        if type(int(dice_to_keep)) == int:
-                    if len(dice_to_keep) <= remaining_dice:
-                        user_input = [int(i) for i in dice_to_keep.split(",")]
-                        for i in user_input:
-                            if not i in roll:
-                                Game.cheater(roll)
-
-
-                    else:
-                        Game.cheater(roll)
+   
         
-        else:
-            print('pleas enter valid input..')
-                                
     @staticmethod
-    def cheater(roll):
-        print('Cheater!!! Or possibly made a typo...')
-        print(roll)
-        dice_to_keep = input('Enter dice to keep (no spaces), or (q)uit: ')
-        return dice_to_keep
+    def cheat(dice_to_keep,roll):
+        user_input = [int(i) for i in dice_to_keep]
+        a = Counter(user_input).most_common()
+        b = Counter(roll).most_common()
+        votes=0
+        cheatting = True
+        if len(a) <= len(b):
+            for i in a:
+                for j in b:
+                    if i[0] == j[0]:
+                        if i[1] <= j[1]:
+                            votes +=1
+        if len(a) == votes:
+            cheatting = False
+
+        if cheatting == True:
+            return True
+        if cheatting == False:
+            return False
+
+
+  
+        
+        
+          
+                                
+  
 
 
     def play(self):
@@ -285,25 +292,111 @@ class Game:
             print('OK. Maybe another time')
         elif res == 'y':
             play = True
-            round = 1
-            remaining_dice = 6
             score = 0
-
+            round = 1
+            past_roll=0
+            unbanked = 0
+            print(f'Starting round {round}')
+            remaining_dice = 6
             while play:
-                print(f'Starting round {round}')
+                
                 print(f'Rolling {remaining_dice} dice...')
                 roll = self.roller(remaining_dice)
                 # Game.print_roll(roll)
                 print(','.join([str(i) for i in roll]))
+                if GameLogic.calculate_score(roll) ==0:
+                    print('Zilch!!! Round over')
+                    remaining_dice= 6
+                    unbanked = 0
+                    print(f'You banked {unbanked} points in round {round}')
+                    round +=1
+                    print(f'Total score is {score} points')
+                   
+                    print(f'Starting round {round}')
+                    dice_to_keep = 'Zilch'
+                    print(f'Rolling {remaining_dice} dice...')
+                    roll = self.roller(remaining_dice)
+                    # Game.print_roll(roll)
+                    print(','.join([str(i) for i in roll]))
                 dice_to_keep = input('Enter dice to keep (no spaces), or (q)uit: ')
+                
                 if dice_to_keep == 'q':
                     Game.quit(score)
-        
-                else:
+                    play = False
+                    past_roll=0
+                elif dice_to_keep == 'Zilch':
+                    pass
                     
+                else:
+                    cheating = False 
+                    if Game.cheat(dice_to_keep,roll)==True:
+                        cheating = True
+
+                    while cheating==True:
+                        print('Cheater!!! Or possibly made a typo...')
+                        print(','.join([str(i) for i in roll]))
+                        dice_to_keep = input('Enter dice to keep (no spaces), or (q)uit: ')
+                        cheating = False 
+                        if Game.cheat(dice_to_keep,roll)==True:
+                            cheating = True
+                        if dice_to_keep == 'q':
+                            Game.quit(score)
+                            play = False 
+                            past_roll=0
+                            cheating = False
+                            break
+                       
+
+                      
                         
-                    g = GameLogic()
-                    unbank = g.calculate_score((int(dice_to_keep),))
+
+
+                    if dice_to_keep != 'q' and dice_to_keep != 'b'and dice_to_keep != 'r':
+                        g = GameLogic()
+                        user_input = [int(i) for i in dice_to_keep]
+                        remaining_dice -= len(user_input)
+                        unbanked = g.calculate_score(tuple(user_input)) 
+                        if past_roll!=0 :
+                            unbanked +=past_roll
+                            past_roll=0
+
+                        print(f'You have {unbanked} unbanked points and {remaining_dice} dice remaining')
+                        res = input('(r)oll again, (b)ank your points or (q)uit ')
+                        if res == 'q':
+                            
+                            Game.quit(score) 
+                            past_roll=0
+                            play = False
+
+                        elif res == 'b':
+                            score+=unbanked
+                            print(f'You banked {unbanked} points in round {round}')
+                            print(f'Total score is {score} points')
+                            round+=1
+                            past_roll=0
+                            remaining_dice =6
+                            print(f'Starting round {round}')
+
+
+
+                        elif res =='r' and unbanked ==1500:
+                            past_roll += unbanked
+                            remaining_dice =6
+                            pass
+
+                        elif res =='r':
+                            past_roll += unbanked
+                            
+                            pass
+
+                     
+
+
+
+                    
+
+
+
                 # if type(int(dice_to_keep)) == int:
                 #     if len(dice_to_keep) <= remaining_dice:
                 #         user_input = [int(i) for i in dice_to_keep.split(",")]
@@ -324,40 +417,43 @@ class Game:
                 # else:
                 #     print('pleas enter valid input..')
 
-                    print(f'You have {unbank} unbanked points and {remaining_dice} dice remaining')
-                    res = input(f'(r)oll again, (b)ank your points or (q)uit ')
-                    if res == 'b':
-                        score +=unbank 
-                        print(f'You banked {unbank} points in round {round}')
-                        print(f'Total score is {score} points')
-                    round+=1
-                    print(f'Starting round {round}')
-                    print(f'Rolling {remaining_dice+1} dice...')
-                    roll2 = self.roller(remaining_dice)
-                    # Game.print_roll(roll)
-                    print(','.join([str(i) for i in roll2]))
-                    dice_to_keep = input('Enter dice to keep (no spaces), or (q)uit: ')
-                    if dice_to_keep == 'q':
-                        print(f'Total score is {score} points')
-                        print(f'Thanks for playing. You earned {score} points')
-                    else:
-                        unbank = g.calculate_score((int(dice_to_keep),))
-                        print(f'You have {unbank} unbanked points and {remaining_dice} dice remaining')
-                        res=input('(r)oll again, (b)ank your points or (q)uit ')
-                        if res == 'b':
-                            score +=unbank 
-                            print(f'You banked {unbank} points in round {round}')
-                            print(f'Total score is {score} points')
-                            round+=1
-                            print(f'Starting round {round}')
-                            print(f'Rolling {remaining_dice+1} dice...')
-                            roll2 = self.roller(remaining_dice)
-                            # Game.print_roll(roll)
-                            print(','.join([str(i) for i in roll2]))
-                            dice_to_keep = input('Enter dice to keep (no spaces), or (q)uit: ')
-                            if dice_to_keep == 'q':
-                                print(f'Total score is {score} points')
-                                print(f'Thanks for playing. You earned {score} points')
+                    # print(f'You have {unbank} unbanked points and {remaining_dice} dice remaining')
+                    # res = input(f'(r)oll again, (b)ank your points or (q)uit ')
+                    # if res == 'b':
+                    #     score +=unbank 
+                    #     print(f'You banked {unbank} points in round {round}')
+                    #     print(f'Total score is {score} points')
+                    # round+=1
+                    # print(f'Starting round {round}')
+                    # print(f'Rolling {remaining_dice+1} dice...')
+                    # roll2 = self.roller(remaining_dice)
+                    # # Game.print_roll(roll)
+                    # print(','.join([str(i) for i in roll2]))
+                    # dice_to_keep = input('Enter dice to keep (no spaces), or (q)uit: ')
+                    # if dice_to_keep == 'q':
+                    #     print(f'Total score is {score} points')
+                    #     print(f'Thanks for playing. You earned {score} points')
+                    # else:
+                    #     unbank = g.calculate_score((int(dice_to_keep),))
+                    #     print(f'You have {unbank} unbanked points and {remaining_dice} dice remaining')
+                    #     res=input('(r)oll again, (b)ank your points or (q)uit ')
+                    #     if res == 'b':
+                    #         score +=unbank 
+                    #         print(f'You banked {unbank} points in round {round}')
+                    #         print(f'Total score is {score} points')
+                    #         round+=1
+                    #         print(f'Starting round {round}')
+                    #         print(f'Rolling {remaining_dice+1} dice...')
+                    #         roll2 = self.roller(remaining_dice)
+                    #         # Game.print_roll(roll)
+                    #         print(','.join([str(i) for i in roll2]))
+                    #         dice_to_keep = input('Enter dice to keep (no spaces), or (q)uit: ')
+                    #         if dice_to_keep == 'q':
+                    #             print(f'Total score is {score} points')
+                    #             print(f'Thanks for playing. You earned {score} points')
 
 
 
+if __name__ == "__main__":
+    game= Game()
+    game.play()

@@ -75,3 +75,34 @@ Start at 2:00 pm Finished 4:20 pm
 
 
 
+# Game of Greed III
+
+### Lab-08 
+08/12/2020
+
+Start at 1:00 pm Finished 9:44 pm
+
+### *Feature Tasks and Requirements*
+
+### we create another class name Game and inside it we put 
+
+1.Application should implement all features from previous version
+
+2.Application should simulate rolling between 1 and 6 dice
+
+3.Application should allow user to set aside dice each roll
+
+4.Application should allow “banking” current score or rolling again.
+5.Application should keep track of total score
+
+6.Application should keep track of current round
+
+7.Application should have automated tests to ensure proper operation
+
+8.Should handle setting aside scoring dice and continuing turn with remaining dice.
+
+9.Should handle when cheating occurs.
+
+10.Should allow user to continue rolling with 6 new dice when all dice have scored in current turn.
+
+11.Handle zilch
