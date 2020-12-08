@@ -1,33 +1,4 @@
-'''
-Feature Tasks and Requirements
-Today is all about tackling the highest risk and/or highest priority features - scoring, dice rolling and banking of points.
-Define a GameLogic class in game_of_greed/game_logic.py file.
-Handle calculating score for dice roll
-Add calculate_score static method to GameLogic class.
-The input to calculate_score is a tuple of integers that represent a dice roll.
-The output from calculate_score is an integer representing the roll’s score according to rules of game.
-Handle rolling dice
-Add roll_dice static method to GameLogic class.
-The input to roll_dice is an integer between 1 and 6.
-The output of roll_dice is a tuple with random values between 1 and 6.
-The length of tuple must match the argument given to roll_dice method.
-Handle banking points
-Define a Banker class
-Add a shelf instance method
-Input to shelf is the amount of points (integer) to add to shelf.
-shelf should temporarily store unbanked points.
-Add a bank instance method
-bank should add any points on the shelf to total and reset shelf to 0.
-bank output should be the amount of points added to total from shelf.
-Add a clear_shelf instance method
-clear_shelf should remove all unbanked points.
-Implementation Notes
-Review rules of game
-Play game online
-User Acceptance Tests
-Create tests/test_game_logic.py file.
 
-'''
 
 from abc import ABC
 from collections import Counter
@@ -397,60 +368,7 @@ class Game:
 
 
 
-                # if type(int(dice_to_keep)) == int:
-                #     if len(dice_to_keep) <= remaining_dice:
-                #         user_input = [int(i) for i in dice_to_keep.split(",")]
-                #         for i in user_input:
-                #             if not i in roll:
-                #                 print('Cheater!!! Or possibly made a typo...')
-                #                 print(roll)
-                #                 dice_to_keep = input('Enter dice to keep (no spaces), or (q)uit: ')
-                                
-                #             else:
-                #                 unbank = g.calculate_score((int(dice_to_keep),))
-                #                 print(f'You have {unbank} unbanked points and {remaining_dice} dice remaining')
-                #                 res = input(f'(r)oll again, (b)ank your points or (q)uit ')
-                #                 if dice_to_keep == 'q':
-                #                     unbank = 0
-                #                 print(f'Total score is {score} points')
-                #                 print(f'Thanks for playing. You earned {score} points')
-                # else:
-                #     print('pleas enter valid input..')
-
-                    # print(f'You have {unbank} unbanked points and {remaining_dice} dice remaining')
-                    # res = input(f'(r)oll again, (b)ank your points or (q)uit ')
-                    # if res == 'b':
-                    #     score +=unbank 
-                    #     print(f'You banked {unbank} points in round {round}')
-                    #     print(f'Total score is {score} points')
-                    # round+=1
-                    # print(f'Starting round {round}')
-                    # print(f'Rolling {remaining_dice+1} dice...')
-                    # roll2 = self.roller(remaining_dice)
-                    # # Game.print_roll(roll)
-                    # print(','.join([str(i) for i in roll2]))
-                    # dice_to_keep = input('Enter dice to keep (no spaces), or (q)uit: ')
-                    # if dice_to_keep == 'q':
-                    #     print(f'Total score is {score} points')
-                    #     print(f'Thanks for playing. You earned {score} points')
-                    # else:
-                    #     unbank = g.calculate_score((int(dice_to_keep),))
-                    #     print(f'You have {unbank} unbanked points and {remaining_dice} dice remaining')
-                    #     res=input('(r)oll again, (b)ank your points or (q)uit ')
-                    #     if res == 'b':
-                    #         score +=unbank 
-                    #         print(f'You banked {unbank} points in round {round}')
-                    #         print(f'Total score is {score} points')
-                    #         round+=1
-                    #         print(f'Starting round {round}')
-                    #         print(f'Rolling {remaining_dice+1} dice...')
-                    #         roll2 = self.roller(remaining_dice)
-                    #         # Game.print_roll(roll)
-                    #         print(','.join([str(i) for i in roll2]))
-                    #         dice_to_keep = input('Enter dice to keep (no spaces), or (q)uit: ')
-                    #         if dice_to_keep == 'q':
-                    #             print(f'Total score is {score} points')
-                    #             print(f'Thanks for playing. You earned {score} points')
+                
 
 
 
