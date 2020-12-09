@@ -194,6 +194,27 @@ class GameLogic:
             i +=1
         return tuple_result  
 
+    
+    @staticmethod
+    def get_scorers(dice):
+        # version_3
+
+        all_dice_score = GameLogic.calculate_score(dice)
+
+        if all_dice_score == 0:
+            return tuple()
+
+        scorers = []
+
+        for i in range(len(dice)):
+            sub_roll = dice[:i] + dice[i + 1 :]
+            sub_score = GameLogic.calculate_score(sub_roll)
+
+            if sub_score != all_dice_score:
+                scorers.append(dice[i])
+
+        return tuple(scorers)
+
         
 
 class Banker:
@@ -269,6 +290,7 @@ class Game:
             unbanked = 0
             print(f'Starting round {round}')
             remaining_dice = 6
+
             while play:
                 
                 print(f'Rolling {remaining_dice} dice...')
@@ -279,6 +301,7 @@ class Game:
                     print('Zilch!!! Round over')
                     remaining_dice= 6
                     unbanked = 0
+                    past_roll=0
                     print(f'You banked {unbanked} points in round {round}')
                     round +=1
                     print(f'Total score is {score} points')
@@ -357,10 +380,17 @@ class Game:
 
                         elif res =='r':
                             past_roll += unbanked
-                            
+                            if remaining_dice==0:
+                                score+=unbanked
+                                remaining_dice =6
+                                print(f'Starting round {round}')
+                                
                             pass
 
-                     
+                if round >20:
+                    Game.quit(score) 
+                    past_roll=0
+                    play = False     
 
 
 
